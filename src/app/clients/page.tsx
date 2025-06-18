@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { requestCliente } from "@/api/CrudDirecciones";
 import {cliente} from "@/interfaces/clienteInter";
+import { Header } from "@/components/header";
 
 export default function ClientsPage() {
     const [clientes,setClientes] = useState<cliente[]>([]);
@@ -20,40 +21,42 @@ export default function ClientsPage() {
     []);
 
     return( 
-        <div>
-            <main>
-                <h1 className="text-2xl font-bold mb-4">Clientes</h1>
-                <p className="mb-8">This page will display a list of clients.</p>
-                <div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre Completo</th>
-                                <th>Dni</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
-                                <th>Fecha Registro</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                            <tbody>
-                            {clientes.map((cliente,index) => (
-                                <tr key={cliente._id}>
-                                <td>{index}</td>
-                                <td>{cliente.nombre_completo}</td>
-                                <td>{cliente.dni}</td>
-                                <td>{cliente.correo_electronico}</td>
-                                <td>{cliente.telefono}</td>
-                                <td>{new Date(cliente.fecha_registro).toLocaleDateString()}</td>
-                                <td>{cliente.estado ? 'Activo' : 'Inactivo'}</td>
-                            </tr>
-                             ))}
-                            </tbody>
+        
+            <div className="">
+                <main>  
+                    <Header />                
+                    <h1 className="text-2xl font-bold mb-4">Clientes</h1>
+                    <div className="flex overflow-y-auto max-h-screen">
+                        <table className="justify-center items-center w-full m-10 min-w-max table-auto">
+                            <thead className="text-center">
+                                <tr className="gap-4">
+                                    <th>ID</th>
+                                    <th>Nombre Completo</th>
+                                    <th>Dni</th>
+                                    <th>Correo</th>
+                                    <th>Teléfono</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                                <tbody className="text-center">
+                                {clientes.map((cliente,index) => (
+                                    <tr key={cliente._id} className="gap-4">
+                                    <td>{index}</td>
+                                    <td>{cliente.nombre_completo}</td>
+                                    <td>{cliente.dni}</td>
+                                    <td>{cliente.correo_electronico}</td>
+                                    <td>{cliente.telefono}</td>
+                                    <td>{new Date(cliente.fecha_registro).toLocaleDateString()}</td>
+                                    <td>{cliente.estado ? 'Activo' : 'Inactivo'}</td>
+                                </tr>
+                                 ))}
+                                </tbody>
 
-                    </table>
-                </div>
-            </main>
-        </div>
+                        </table>
+                    </div>
+                </main>
+            </div>
+        
     );
 }
