@@ -1,21 +1,20 @@
 import axios from 'axios';
 
-const BASE_URL = `http://localhost:5000/api/clientes`;
+const BASE_URL = `http://localhost:5000/api/direcciones`;
 
-type Metodo = 'GET' | 'POST' | 'PUT' | 'DELETE';
-export async function requestCliente(
-    metodo: Metodo,
-    endpoint: string = "",
-    data?: any,
-) {
-    const url = `${BASE_URL}${endpoint}`;
+export const getDireccion = async () => {
     try{
-        const response = await axios({
-            method: metodo,
-            url,
-            data,
-        })
+        const response = await axios.get(`${BASE_URL}/get`);
         return response.data;
     }catch (error) {
-        throw new Error(`Error en la solicitud: ${error}`);}
+        throw new Error(`Error al obtener direcciones: ${error}`);
+    }   
+}
+export const createDireccion = async (direccion: any) => {
+    try{
+        const response = await axios.post(`${BASE_URL}  /add`,direccion);
+        return response.data;
+    }catch (error) {
+        throw new Error(`Error al crear dirección: ${error}`);
+    }
 }

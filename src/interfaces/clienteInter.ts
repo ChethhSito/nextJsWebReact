@@ -5,5 +5,5 @@ export interface cliente{
     correo_electronico: string;
     telefono: string;
     fecha_registro: Date;
-    estado: boolean;
+    estado: string;
 }
