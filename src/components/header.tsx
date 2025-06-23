@@ -12,8 +12,8 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                         <button className="rounded-2xl
                         px-8
                         py-2
-                    bg-cyan-900
-                    text-gray-400
+                    bg-fuchsia-900
+                    text-white
                     font-mono
                     text-xl
                     border
@@ -27,8 +27,8 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                     cursor-pointer
                     select-none"><a href="/" className="hover:underline">HOME</a></button>
                         <button className="rounded-2xl px-8 py-2
-                    bg-cyan-900
-                    text-gray-400
+                    bg-fuchsia-900
+                    text-white
                     font-mono
                     text-xl
                     border
@@ -42,8 +42,8 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                     cursor-pointer
                     select-none"><a href="/clients" className="hover:underline">CLIENTES</a></button>
                         <button className="rounded-2xl px-8 py-2
-                    bg-cyan-900
-                    text-gray-400
+                    bg-fuchsia-900
+                    text-white
                     font-mono
                     text-xl
                     border

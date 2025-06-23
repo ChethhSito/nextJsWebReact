@@ -59,7 +59,7 @@ export default function editDirection() {
              {isOpen && <Sidebar />}   
              <Header onMenuClick={()=>setIsOpen(!isOpen)}/>
             <div className="max-w-4xl mx-auto mt-10 p-8 h-full text-xl font-mono rounded-lg bg-emerald-800 text-black font-medium">
-            <h1 className="mb-8">EDITAR UN CLIENTE</h1>
+            <h1 className="mb-8">EDITAR UN DIRECCION</h1>
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
                  <div className="md:col-span-2 flex items-end gap-4">
                     <div className="flex-1">
