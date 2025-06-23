@@ -13,7 +13,7 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                         px-8
                         py-2
                     bg-cyan-900
-                    text-black
+                    text-gray-400
                     font-mono
                     text-xl
                     border
@@ -28,7 +28,7 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                     select-none"><a href="/" className="hover:underline">HOME</a></button>
                         <button className="rounded-2xl px-8 py-2
                     bg-cyan-900
-                    text-black
+                    text-gray-400
                     font-mono
                     text-xl
                     border
@@ -43,7 +43,7 @@ export const Header = ({onMenuClick}:{onMenuClick:()=>void}) => {
                     select-none"><a href="/clients" className="hover:underline">CLIENTES</a></button>
                         <button className="rounded-2xl px-8 py-2
                     bg-cyan-900
-                    text-black
+                    text-gray-400
                     font-mono
                     text-xl
                     border

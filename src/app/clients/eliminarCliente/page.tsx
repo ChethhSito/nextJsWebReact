@@ -66,7 +66,7 @@ export default function deleteClient(){
             {isOpen && <Sidebar />}   
             <Header onMenuClick={()=>setIsOpen(!isOpen)}/>
             <div className="max-w-4xl mx-auto mt-10 p-8 h-full text-xl font-mono rounded-lg bg-emerald-800 text-black font-medium">
-            <h1 className="mb-8">AÑADIR UN NUEVO CLIENTE</h1>
+            <h1 className="mb-8">ELIMINAR A UN CLIENTE</h1>
             <div className="md:col-span-2 flex items-end gap-4">
                 <div className="flex-1">
                     <label className="block mb-2">Buscar por ID:</label>

@@ -1,20 +1,20 @@
 "use client";
 import { Header } from "@/components/header";
 import { Sidebar } from "@/components/sidebar";
-import { cliente } from "@/interfaces/clienteInter";
+import { Direccion } from "@/interfaces/direccionInter";
 import { use, useEffect, useState } from "react";
-import { editCliente,getClientebyId } from "@/api/CrudClientes";
+import { editDireccion,getDireccionById } from "@/api/CrudDirecciones";
 
 
-export default function editClient() {
-    const [clientes,setClientes] = useState<cliente>({
+export default function editDirection() {
+    const [direcciones,setDirecciones] = useState<Direccion>({
         _id: "",
-        nombre_completo: "",
-        dni: "",
-        correo_electronico: "",
-        telefono: "",
-        fecha_registro: new Date(),
-        estado: "activo",
+        cliente_id:{_id: "", },
+        direccion: "", 
+        ciudad: "",
+        departamento: "", 
+        codigo_postal: "",
+        tipo: "", 
     });
     //defino el estado para buscar por ID
     //este estado se usa para buscar un cliente por su ID y luego editarlo
@@ -24,13 +24,14 @@ export default function editClient() {
     const handleClick = async (id:string) => {
         
         try {
-            const clienteEncontrado = await getClientebyId(id);
-            setClientes({
-                ...clienteEncontrado,
-            fecha_registro: new Date(clienteEncontrado.fecha_registro), // Asegurarse de que fecha_registro sea un objeto Date
-            }    
-            );
-            console.log("Cliente encontrado:", clienteEncontrado);
+            const direccionEncontrada = await getDireccionById(id);
+            setDirecciones({
+                ...direccionEncontrada,
+                cliente_id: typeof direccionEncontrada.cliente_id === "object"
+                ? direccionEncontrada.cliente_id
+                : { _id: direccionEncontrada.cliente_id }
+            })
+            console.log("Direccion encontrado:", direccionEncontrada);
         } catch (error) {
             console.error("Error al buscar el cliente:", error);
         }
@@ -38,15 +39,12 @@ export default function editClient() {
     
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-         const { _id, ...clienteSinId } = clientes;
-            const clienteAEnviar = {
-                ...clienteSinId,
-                fecha_registro: clientes.fecha_registro.toISOString(),
-            };
+         const { _id, ...direccionSinId } = direcciones;
+            
 
-        console.log("Datos enviados:", clienteAEnviar);
+        console.log("Datos enviados:", direccionSinId);
         try {
-            const response = await editCliente(_id,clienteAEnviar);
+            const response = await editDireccion(_id,direccionSinId);
             console.log("Cliente creado:", response);
 
 
@@ -88,86 +86,73 @@ export default function editClient() {
                         Buscar
                     </button>
                 </div>
-                
-                <div >
-                <label className="block mb-2">Nombre Completo:</label>
+               <div >
+                <label className="block mb-2">Direccion:</label>
                     <input type="text" className=" w-full rounded-lg bg-neutral-100 text-black font-mono border border-white focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-end text-base "
-                    placeholder="nombre completo"
-                    value={clientes.nombre_completo}
+                    placeholder="direccion"
+                    value={direcciones.direccion}
                     required
                     onChange={(e) =>
-                    setClientes({
-                    ...clientes,
-                    nombre_completo: e.target.value,
+                    setDirecciones({
+                    ...direcciones,
+                    direccion: e.target.value,
+                    
               })
             }/>
             </div>
             <div >
-                <label className="block mb-2">Dni: </label>
+                <label className="block mb-2">Ciudad: </label>
                     <input type="text" className="w-full rounded-lg bg-neutral-100 text-black font-mono border border-white focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-end  text-base " 
-                    placeholder="dni"
-                    value={clientes.dni}
+                    placeholder="ciudad"
+                    value={direcciones.ciudad}
                     required
                     onChange={(e) =>
-                    setClientes({
-                    ...clientes,
-                    dni: e.target.value,
+                    setDirecciones({
+                    ...direcciones,
+                    ciudad: e.target.value,
 
               })
             }/></div>
                 <div >
-                <label className="block mb-2">Correo Electronico: </label>
+                <label className="block mb-2">Codigo Postal: </label>
                     <input type="text" className="w-full rounded-lg bg-neutral-100 text-black font-mono border border-white focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-end text-base " 
-                    placeholder="correo electronico"
-                    value={clientes.correo_electronico}
+                    placeholder="codigo postal"
+                    value={direcciones.codigo_postal}
                     required
                     onChange={(e) =>
-                    setClientes({
-                    ...clientes,
-                    correo_electronico: e.target.value,
+                    setDirecciones({
+                    ...direcciones,
+                    codigo_postal: e.target.value,
               })
             }/>
                 </div>
                 <div >
-                <label className="block mb-2">Telefono</label>
+                <label className="block mb-2">Departamento</label>
                     <input type="text" className="w-full rounded-lg bg-neutral-100 text-black font-mono border border-white focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-end text-base " 
-                    placeholder="telefono"
-                    value={clientes.telefono}
+                    placeholder="departamento"
+                    value={direcciones.departamento}
                     required
                     onChange={(e) =>
-                    setClientes({
-                    ...clientes,
-                    telefono: e.target.value,
+                    setDirecciones({
+                    ...direcciones,
+                    departamento: e.target.value,
               })
             }/>
             </div>
             <div >
-                <label className="block mb-2">Fecha Registro</label>
-                    <input type="date" className="w-full rounded-lg border bg-neutral-100 text-black font-mono border-gray-300 focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-base text-end" 
-                    value={clientes.fecha_registro.toISOString().split("T")[0]} // Formato YYYY-MM-DD
-                    required
+                <label className="block mb-2">Cliente Id</label>
+                    <input type="text" className="text-gray-700 w-full rounded-lg border bg-neutral-100 font-mono border-gray-300 focus:border-b-blue-500 focus:ring-3 focus:ring-blue-500 focus:outline-none p-2 text-base text-end" 
+                    placeholder="idCliente" value={direcciones.cliente_id._id} // Formato YYYY-MM-DD
+                    disabled
                     onChange={(e) =>
-                    setClientes({
-                    ...clientes,
-                    fecha_registro: new Date(e.target.value),
-              })
+                    setDirecciones({
+                    ...direcciones,
+                    cliente_id: { _id: e.target.value }
+            })
             }/>
             </div>
-            <div >
-            <label className="block mb-2">Estado:</label>
-                <select className="w-full rounded-lg border bg-neutral-100 text-black font-mono border-gray-300 p-2 text-start text-base "
-                    value={clientes.estado}
-                    onChange={(e) =>
-                        setClientes({
-                            ...clientes,
-                            estado: e.target.value ,
-                        })
-                    }>
-                        <option className="text-black" value="activo">Activo</option>
-                        <option className="text-black" value="inactivo">Inactivo</option>
-                    </select>
-                </div>
-                <div className="md:col-span-2 flex justify-end mt-4">
+            
+                <div className="md:col-span-1 flex justify-end mt-4">
                  <button type="submit" className="
                     relative
                     px-8 py-4
